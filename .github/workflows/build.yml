@@ -113,21 +113,14 @@ jobs:
           # Generate configuration's hash
           echo $(echo -n '${{ toJSON(matrix.config) }}' | openssl dgst -sha1 | awk '{print $2}')
           echo "HASH=$(echo -n '${{ toJSON(matrix.config) }}' | openssl dgst -sha1 | awk '{print $2}')" >> $GITHUB_OUTPUT
-
+      
       - name: 🚅 Cache ccache & output
-        env:
-          HASH: ${{ steps.hash.outputs.HASH }}
-        if: ${{ env.ENABLE_CCACHE == 'true' }}
         uses: actions/cache@v3
         with:
-          path: |
-            ${{ env.OUT_DIR }}
-            ${{ env.CCACHE_DIR }}
-          key: cache-${{ env.KERNEL_NAME }}-${{env.HASH}}-${{ env.BUILD_DATE }}
+          path: /home/runner/work/Kernel-Builder-Next/Kernel-Builder-Next/out
+          key: ${{ runner.os }}-build-${{ hashFiles('**/your-build-files-pattern*') }}
           restore-keys: |
-            cache-${{ env.KERNEL_NAME }}-${{env.HASH}}-${{ env.BUILD_DATE }}
-            cache-${{ env.KERNEL_NAME }}-${{env.HASH}}-
-            cache-${{ env.KERNEL_NAME }}-
+            ${{ runner.os }}-build-
 
       - name: 🌟 Clone kernel source => (${{ env.KERNEL_REPO }})
         run: |
