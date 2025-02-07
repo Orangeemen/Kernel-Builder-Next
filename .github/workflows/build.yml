@@ -117,11 +117,14 @@ jobs:
       - name: 🚅 Cache ccache & output
         uses: actions/cache@v3
         with:
-          path: /home/runner/work/Kernel-Builder-Next/Kernel-Builder-Next/out
-          key: ${{ runner.os }}-build-${{ hashFiles('**/your-build-files-pattern*') }}
+          path: |
+            ${{ env.OUT_DIR }}
+            ${{ env.CCACHE_DIR }}
+          key: ${{ runner.os }}-build-${{ steps.hash.outputs.HASH }}-${{ env.BUILD_DATE }}
           restore-keys: |
+            ${{ runner.os }}-build-${{ steps.hash.outputs.HASH }}-
             ${{ runner.os }}-build-
-
+            
       - name: 🌟 Clone kernel source => (${{ env.KERNEL_REPO }})
         run: |
           git clone --recursive --depth=1 -j $(nproc) --branch ${{ env.KERNEL_BRANCH }} ${{ env.KERNEL_REPO }} ${{ env.KERNEL_NAME }}
