@@ -5,7 +5,7 @@
             "repo": "https://github.com/Orangeemen/android_gki_kernel_5.10_common", 
             "branch": "android12-5.10-2025-02", 
             "device": "rubens", 
-            "defconfig": "rubens_config" 
+            "defconfig": "gki_defconfig" 
           }, 
           "toolchains": [ 
             {  
