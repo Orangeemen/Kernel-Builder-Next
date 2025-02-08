@@ -2,10 +2,10 @@
     {
         "kernelSource": { 
             "name": "k50-orange", 
-            "repo": "https://github.com/ztc1997/android_gki_kernel_5.10_common", 
+            "repo": "https://github.com/Orangeemen/android_gki_kernel_5.10_common", 
             "branch": "android12-5.10-2025-02", 
             "device": "rubens", 
-            "defconfig": "gki_defconfig" 
+            "defconfig": "rubens_config" 
           }, 
           "toolchains": [ 
             {  
